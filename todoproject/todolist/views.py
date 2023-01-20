@@ -21,8 +21,18 @@ class ArchiveView(View):
             return HttpResponse("sélectionnez une ancienne année")
         return HttpResponse(f"{month}, {year}")
 
-class ToDosView(View):
-    def get(self, request):
-        todos = ToDo.objects.all()
-        todos.values("todo_text")
-        return HttpResponse(todos)
+class ToDosView(TemplateView):
+    template_name= "todolist/task_list.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tasks = ToDo.objects.all()
+        context["task_list"] = tasks
+        return context
+
+class TaskDetailView(TemplateView):
+    template_name = "todolist/task_detail.html"
+    def get_context_data(self, task_id, **kwargs):
+        context = super().get_context_data(**kwargs)
+        task = ToDo.objects.get(id=task_id)
+        context["task"] = task
+        return context

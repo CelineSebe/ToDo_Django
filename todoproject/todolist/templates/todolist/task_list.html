@@ -1,0 +1,21 @@
+
+{% extends 'todolist/base.html' %}
+
+{% block content %}
+    {% block todo_text %}
+    Liste des livres
+    {% endblock%}
+    {% if task_list %}
+        <ul>
+            {% for task in task_list %}
+            <li> 
+                <a href='{% url "task_detail" task.id %}'>
+                    <div class="task">{{ task }}</div>
+                    <div class="deadline">{{ task.deadline}}</div></a>      
+            </li>
+            {% endfor %}
+            </ul>
+    {% endif %}
+{% endblock %}
+
+
