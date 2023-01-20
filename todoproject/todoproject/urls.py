@@ -21,5 +21,5 @@ urlpatterns = [
     # path('', views.index),
     path('', views.IndexView.as_view()),
     # path('about/', views.AboutView.as_view())
-    path('todo/', include('todolist.urls'))
+    path('todos/', include('todolist.urls'))
 ]
